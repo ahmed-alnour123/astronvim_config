@@ -9,14 +9,16 @@ return {
     -- second key is the lefthand side of the map
 
     -- navigate buffer tabs with `H` and `L`
-    -- L = {
-    --   function() require("astronvim.utils.buffer").nav(vim.v.count > 0 and vim.v.count or 1) end,
-    --   desc = "Next buffer",
-    -- },
-    -- H = {
-    --   function() require("astronvim.utils.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1)) end,
-    --   desc = "Previous buffer",
-    -- },
+    L = {
+      function() require("astronvim.utils.buffer").nav(vim.v.count > 0 and vim.v.count or 1) end,
+      desc = "Next buffer",
+    },
+    H = {
+      function() require("astronvim.utils.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1)) end,
+      desc = "Previous buffer",
+    },
+    ["<leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
+    ["<leader>x"] = { "<cmd>%!unexpand -t2 %<cr>", desc = "replace spaces with tabs" },
 
     -- mappings seen under group name "Buffer"
     ["<leader>bD"] = {
@@ -32,6 +34,29 @@ return {
     ["<leader>b"] = { name = "Buffers" },
     -- quick save
     -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+    ["<C-/>"] = {
+      function() require("Comment.api").toggle.linewise.current() end,
+      desc = "Comment line",
+      remap = true,
+    },
+  },
+  i = {
+    ["<C-Enter>"] = {
+      "<cmd>lua require('luasnip').expand_or_jump()<CR>",
+      desc = "jump to the next snippet placeholder",
+    },
+    ["<C-/>"] = {
+      function() require("Comment.api").toggle.linewise.current() end,
+      desc = "Comment line",
+      remap = true,
+    },
+  },
+  v = {
+    ["<C-/>"] = {
+      "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
+      desc = "Toggle comment line",
+      remap = true,
+    },
   },
   t = {
     -- setting a mapping to false will disable it
